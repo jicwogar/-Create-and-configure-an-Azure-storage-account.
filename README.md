@@ -262,6 +262,6 @@ This repository serves as a practical demonstration of **Azure Storage administr
 
 ---
 
-**Author:** J. C. Wogar  
+**Author:** Inyambe kani Wogar  
 **Platform:** Microsoft Azure  
 **Project:** Create and Configure an Azure Storage Account
