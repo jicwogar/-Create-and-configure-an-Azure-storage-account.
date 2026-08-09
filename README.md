@@ -221,7 +221,7 @@ Redundancy should be selected according to availability and disaster-recovery re
 
 Geo-redundancy can improve resilience against a regional outage, although replication to the secondary region is asynchronous.
 
-![Step 10 - Verify Redundancy](./10-Confirm-your-redundancy-settings-are-set-to-read-access.png)
+![Step 10 - Verify Redundancy](./10-Confirm-your-redundancy-settings-are-set-to-Read-Access-Georeundant-storage-on-the-Redundancy-blade-under-Data-Management.png)
 
 ---
 
