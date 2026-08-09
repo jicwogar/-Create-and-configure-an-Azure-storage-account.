@@ -2,33 +2,43 @@
 
 ## Project Overview
 
-This project demonstrates the deployment and configuration of an **Azure Storage Account** using the Azure Portal. The exercise covers core storage-account configuration areas including performance, access tier, networking, data protection, redundancy, and lifecycle management.
+This project demonstrates the deployment, configuration, security hardening, and data-management features of an **Azure Storage Account** using the **Azure Portal**.
 
-The project was completed as a practical Azure administration exercise and documented step-by-step with screenshots.
+The project was completed as a practical Azure administration and cloud architecture exercise. The implementation is documented step-by-step with screenshots and includes the architectural reasoning behind the major configuration decisions.
+
+The goal is not only to demonstrate **how** to configure Azure Storage, but also **why** particular settings are appropriate from a security, availability, data-protection, and operational perspective.
+
+---
 
 ## Objectives
 
 The main objectives of this project were to:
 
-- Create a standard Azure Storage Account.
-- Configure the appropriate storage access tier.
-- Review and configure networking and public network access.
-- Enable data-protection features such as soft delete.
-- Configure and verify storage redundancy.
-- Review security and networking settings.
-- Configure lifecycle management for automated data-tier management.
+- Create and configure an Azure Storage Account.
+- Select an appropriate performance and access tier.
+- Configure storage redundancy according to availability requirements.
+- Review and configure public network access.
+- Apply data-protection features such as soft delete.
+- Review storage security and networking settings.
+- Configure lifecycle management for automated data management.
+- Understand the architectural trade-offs between availability, security, performance, and cost.
 - Document the implementation for future reference and portfolio demonstration.
+
+---
 
 ## Technologies and Services
 
-| Technology | Purpose |
+| Technology / Service | Purpose |
 |---|---|
 | Microsoft Azure | Cloud platform |
-| Azure Storage Account | Object/file/blob storage service |
+| Azure Storage Account | Object, file, and blob storage |
 | Azure Portal | Resource deployment and management |
 | Storage lifecycle management | Automated data-tier and retention management |
 | Azure networking controls | Control access to the storage account |
 | Data protection | Protection against accidental deletion |
+| Storage redundancy | Improved resilience and availability |
+
+---
 
 ## Prerequisites
 
@@ -39,13 +49,15 @@ Before starting this exercise, ensure you have:
 - Sufficient permissions to create and manage storage accounts.
 - A basic understanding of Azure resource groups and storage services.
 
-## Implementation Steps
+---
 
-### Step 1 — Create a Standard Azure Storage Account
+# Implementation
 
-Create a new storage account from the Azure Portal.
+## Step 1 — Create a Standard Azure Storage Account
 
-Key configuration areas include:
+A storage account was created through the Azure Portal.
+
+### Key configuration areas
 
 - Subscription
 - Resource group
@@ -54,214 +66,307 @@ Key configuration areas include:
 - Performance
 - Redundancy
 
-The storage account name must be globally unique and comply with Azure naming requirements.
+### Architectural consideration
 
-![Step 1 - Create a standard Azure Storage Account](Step%201.%20create%20a%20standard%20azure%20storage%20account.png)
+The storage account configuration should be selected according to the workload rather than simply choosing the highest available option.
 
----
+Performance, redundancy, availability requirements, and cost should all be considered before deployment.
 
-### Step 2 — Configure the Access Tier
-
-On the **Advanced** configuration section, select the appropriate access tier.
-
-For this exercise, the **Hot** tier was selected. The Hot tier is designed for data that is accessed frequently.
-
-![Step 2 - Select Hot tier](step%202.%20On%20the%20Advanced%20Tab%20select%20the%20Hot%20tier.png)
+**Screenshot:** `01-create-a-standard-azure-storage-account.png`
 
 ---
 
-### Step 3 — Configure Networking
+## Step 2 — Configure the Access Tier
 
-Review the **Networking** tab and configure public network access according to the security requirements of the environment.
+The appropriate storage access tier was selected from the **Advanced** configuration area.
 
-Restricting public network access can reduce exposure of the storage account and is generally preferable where private or explicitly approved network access is required.
+Storage access tiers are designed around how frequently data is accessed.
 
-![Step 3 - Configure networking](Step%203.%20On%20the%20Networking%20Tab%20disable%20public%20access.png)
+### Architectural consideration
 
----
+Selecting an appropriate access tier can help control storage costs:
 
-### Step 4 — Configure Data Protection
+- **Hot** — suitable for frequently accessed data.
+- **Cool** — suitable for data accessed less frequently.
+- **Cold/Archive scenarios** — suitable for increasingly infrequent access, subject to the capabilities and constraints of the selected storage configuration.
 
-On the **Data Protection** tab, enable the appropriate soft-delete protection settings.
+The correct choice depends on the workload's access pattern rather than simply selecting the cheapest storage option.
 
-Soft delete helps recover data that has been accidentally deleted during the configured retention period.
-
-![Step 4 - Configure data protection](Step%204.%20On%20the%20Data%20Protection%20Tab%20enable%20soft%20delete.png)
-
----
-
-### Step 5 — Validate and Create
-
-Review the configuration and select **Review + create**.
-
-Azure performs validation before allowing the storage account to be deployed.
-
-Once validation succeeds, select **Create**.
-
-![Step 5 - Validate and create](Step%205.%20Click%20on%20create%20after%20validation%20is%20complete.png)
+**Screenshot:** `02-on-the-advanced-tab-select-the-hot-tier.png`
 
 ---
 
-### Step 6 — Open the Storage Account Resource
+## Step 3 — Configure Networking and Public Network Access
 
-After deployment completes, select **Go to resource** to open the newly created storage account.
+The networking configuration was reviewed and public network access was restricted according to the intended security posture.
 
-This provides access to the account's configuration, security, networking, data-management, and monitoring options.
+### Architectural consideration
 
-![Step 6 - Go to resource](Step%206.%20Go%20to%20resource%20after%20Storage%20is%20created.png)
+Storage accounts can contain sensitive business data, so unrestricted public access increases the potential attack surface.
 
----
+Where appropriate, access should be limited through controls such as:
 
-### Step 7 — Verify the Created Storage Account
+- Selected virtual networks
+- IP restrictions
+- Private endpoints
+- Identity-based access
+- Appropriate firewall rules
 
-Verify that the storage account has been successfully created and that the selected configuration is reflected in the resource overview.
+For production workloads, **private connectivity and identity-based authorization** should generally be considered where the architecture requires stronger network isolation.
 
-![Step 7 - Created Storage Account](Step%207.%20Created%20Storage%20Account.png)
-
----
-
-### Step 8 — Review Security and Networking
-
-Open the **Security + networking** section of the storage account.
-
-Review the available controls for:
-
-- Network access
-- Public network access
-- Firewall and virtual network rules
-- Authentication and authorization
-- Secure transfer
-- Other security-related settings
-
-![Step 8 - Security and networking](Step%208.%20Under%20Security%20and%20Networking%20blade.png)
+**Screenshot:** `03-on-the-networking-tab-disable-public-access.png`
 
 ---
 
-### Step 9 — Configure Network Access
+## Step 4 — Enable Data Protection
 
-Configure public network access according to the required access model.
+Data-protection settings were reviewed and soft delete was enabled.
 
-Where access is restricted to **selected networks**, only approved virtual networks, IP addresses, or network sources should be permitted.
+### Architectural consideration
 
-This demonstrates the principle of limiting storage access to trusted network locations.
+Soft delete helps protect data from accidental deletion and provides a recovery mechanism within the configured retention period.
 
-![Step 9 - Configure selected network access](Step%209.%20Enable%20Public%20access%20for%20Selected%20Networks.png)
+This supports operational resilience against:
 
----
+- Accidental deletion
+- Application errors
+- User mistakes
+- Unintended administrative actions
 
-### Step 10 — Verify Redundancy
+Data protection should complement, rather than replace, an appropriate backup and disaster-recovery strategy.
 
-Confirm the configured **data redundancy** setting.
-
-Azure Storage redundancy determines how many copies of data are maintained and whether those copies are distributed within a single datacenter, across availability zones, or to a secondary region.
-
-The selected redundancy option should be based on the application's availability, durability, disaster-recovery, and cost requirements.
-
-![Step 10 - Confirm redundancy](Step%2010.%20Confirm%20your%20redundancy%20setting%20are.png)
+**Screenshot:** `04-on-the-data-protection-tab-enable-soft-delete.png`
 
 ---
 
-### Step 11 — Configure Lifecycle Management
+## Step 5 — Validate and Create the Storage Account
 
-Open **Data management → Lifecycle management** and create a lifecycle management rule where appropriate.
+After reviewing the configuration, the deployment was validated before creating the storage account.
 
-Lifecycle management can automatically move blob data between access tiers or delete data when it reaches defined conditions.
+### Architectural consideration
 
-A typical lifecycle strategy might include:
+Validation before deployment helps identify configuration issues before resources are provisioned.
 
-1. Keep frequently accessed data in the Hot tier.
-2. Move less frequently accessed data to Cool or Archive when appropriate.
-3. Delete data after its required retention period.
+This is particularly important in production environments where incorrect settings can create:
 
-![Step 11 - Configure lifecycle management](Step%2011.%20Select%20Lifecycle%20management%20and%20add.png)
+- Security exposure
+- Unexpected costs
+- Availability limitations
+- Compliance issues
+
+**Screenshot:** `05-click-on-create-after-validation-is-complete.png`
 
 ---
 
-## Architecture / Configuration Summary
+## Step 6 — Verify the Deployed Resource
 
-The completed exercise demonstrates the following configuration areas:
+After deployment, the storage account was opened from the Azure Portal and the resulting configuration was reviewed.
 
-```text
-Azure Subscription
-       |
-       +-- Resource Group
-              |
-              +-- Azure Storage Account
-                     |
-                     +-- Performance: Standard
-                     +-- Access Tier: Hot
-                     +-- Redundancy: Configured
-                     +-- Networking: Restricted/Configured
-                     +-- Data Protection: Soft Delete
-                     +-- Lifecycle Management
-```
+### Verification activities
 
-## Key Azure Concepts Demonstrated
+- Confirm the resource was successfully deployed.
+- Review the storage account overview.
+- Verify the selected configuration.
+- Review security and networking settings.
+- Confirm redundancy settings.
 
-### Storage Redundancy
+**Screenshot:** `06-go-to-resource-after-storage-is-completed.png`
 
-Redundancy protects storage data against infrastructure failures. The appropriate option should be selected based on the required availability and disaster-recovery objectives.
+---
 
-### Network Security
+## Step 7 — Verify the Storage Account
 
-Storage accounts can be protected by restricting public network access and allowing connections only from approved sources.
+The deployed storage account was reviewed to confirm that the resource was available and configured as intended.
 
-### Soft Delete
+**Screenshot:** `07-created-storage-account.png`
 
-Soft delete provides an additional recovery mechanism for accidentally deleted data and helps reduce the impact of operational mistakes.
+---
 
-### Lifecycle Management
+## Step 8 — Review Security and Networking
 
-Lifecycle policies help automate data-management decisions and can reduce storage costs by moving data to lower-cost access tiers or deleting data that is no longer required.
+The storage account's **Security + Networking** configuration was reviewed.
 
-## Validation Checklist
+### Architectural consideration
 
-After completing the configuration, verify:
+Security should be treated as a core architectural requirement rather than an optional configuration.
 
-- [x] Storage account successfully created.
-- [x] Standard performance selected.
-- [x] Hot access tier configured.
-- [x] Networking settings reviewed.
-- [x] Data-protection settings configured.
-- [x] Storage redundancy verified.
-- [x] Security and networking settings reviewed.
-- [x] Lifecycle management configured.
-- [x] Configuration documented with screenshots.
+Important considerations include:
 
-## Skills Demonstrated
+- Restricting unnecessary public exposure.
+- Using identity-based authorization where appropriate.
+- Applying least-privilege access.
+- Protecting data at rest and in transit.
+- Monitoring access and configuration changes.
 
-This project demonstrates practical knowledge of:
+**Screenshot:** `08-under-security-and-networking-blade-select...png`
 
-- Azure Portal administration
-- Azure Storage Account deployment
-- Azure storage redundancy
-- Azure networking and access controls
-- Azure data protection
-- Storage lifecycle management
+---
+
+## Step 9 — Restrict Public Network Access
+
+The public network access configuration was reviewed and restricted.
+
+### Architectural rationale
+
+Reducing unnecessary internet exposure lowers the attack surface of the storage service.
+
+For enterprise environments, a stronger architecture may use:
+
+**Application → Private Endpoint → Azure Storage Account**
+
+This can keep storage traffic within private Azure networking rather than exposing the storage endpoint publicly.
+
+**Screenshot:** `09-enable-public-access-for-selected-network...png`
+
+---
+
+## Step 10 — Verify Storage Redundancy
+
+The storage account redundancy configuration was reviewed and verified.
+
+### Architectural consideration
+
+Storage redundancy should be selected according to the required availability and disaster-recovery objectives.
+
+For example:
+
+| Option | General purpose |
+|---|---|
+| LRS | Protection within a single Azure region |
+| ZRS | Replication across availability zones in a region |
+| GRS | Replication to a secondary Azure region |
+| RA-GRS | GRS with read access to the secondary region |
+
+A geo-redundant configuration can improve resilience against a regional outage, although replication to a secondary region is asynchronous.
+
+**Screenshot:** `10-confirm-your-redundancy-settings-are-set-to-read-access...png`
+
+---
+
+## Step 11 — Configure Lifecycle Management
+
+Lifecycle management was configured to support automated data-tier management.
+
+### Architectural consideration
+
+Lifecycle management can automatically move or delete data based on defined rules.
+
+For example:
+
+**Frequently accessed → Infrequently accessed → Archive → Delete**
+
+The purpose is to reduce unnecessary storage costs while retaining data according to business and compliance requirements.
+
+Lifecycle rules should be designed carefully because moving or deleting data can have cost and operational consequences.
+
+**Screenshot:** `11-select-lifecycle-management-and-add-a-rule...png`
+
+---
+
+# Architecture Considerations
+
+The project demonstrates several important Azure architecture principles.
+
+### 1. Security
+
+Storage resources should follow the principle of **least privilege** and should not be unnecessarily exposed to the public internet.
+
+### 2. Availability
+
+Redundancy should be selected based on the application's availability requirements and recovery objectives.
+
+### 3. Data Protection
+
+Features such as soft delete provide protection against accidental deletion but should not be considered a complete disaster-recovery solution.
+
+### 4. Cost Optimization
+
+Access tiers and lifecycle management can reduce storage costs by aligning the storage tier with actual data-access patterns.
+
+### 5. Operational Excellence
+
+Configuration validation, post-deployment verification, and documented procedures make cloud resources easier to operate and maintain.
+
+---
+
+# Security Recommendations for Production
+
+For a production Azure environment, the following should also be evaluated:
+
+- Use Microsoft Entra ID and Azure RBAC instead of shared keys where practical.
+- Apply least-privilege permissions.
+- Consider Private Endpoints for sensitive storage accounts.
+- Restrict public network access where the workload permits.
+- Enable appropriate logging and monitoring.
+- Protect storage data against accidental deletion.
+- Define backup and disaster-recovery requirements.
+- Review storage account configuration regularly.
+- Use infrastructure as code for repeatable deployments.
+
+---
+
+# Infrastructure as Code — Future Improvement
+
+The initial implementation was completed through the Azure Portal to demonstrate the configuration process.
+
+A future iteration of this project can deploy the same architecture using:
+
+- Azure Resource Manager (ARM) templates
+- Bicep
+- Terraform
+- Azure CLI / PowerShell
+
+Using Infrastructure as Code would make the deployment:
+
+- Repeatable
+- Version controlled
+- Auditable
+- Easier to reproduce across environments
+- Better suited to CI/CD workflows
+
+---
+
+# Skills Demonstrated
+
+This project demonstrates practical experience with:
+
+- Azure Storage Accounts
+- Azure Portal
+- Storage redundancy
+- Storage access tiers
+- Azure networking
+- Public network access controls
+- Data protection
+- Soft delete
+- Lifecycle management
+- Availability and disaster-recovery considerations
 - Cloud security fundamentals
-- Azure resource configuration and validation
+- Cost optimization
+- Azure architectural decision-making
 - Technical documentation
 
-## Recommended Improvements
+---
 
-For a production implementation, additional controls could be considered depending on the workload:
+# Project Outcome
 
-- Private Endpoints
-- Azure Private DNS
-- Microsoft Entra ID-based authentication
-- Role-Based Access Control (RBAC)
-- Customer-managed keys where required
-- Azure Monitor and diagnostic settings
-- Storage logging and alerting
-- Geo-redundant storage for disaster recovery
-- Infrastructure as Code using ARM templates, Bicep, or Terraform
+The Azure Storage Account was successfully created and configured with appropriate storage, networking, security, redundancy, and data-management settings.
 
-## Project Purpose
-
-This repository serves as a practical demonstration of **Azure Storage administration and cloud infrastructure configuration**. It is intended for learning, technical documentation, and portfolio development.
+The project demonstrates an understanding of both **Azure administration** and the architectural reasoning required to design a more secure, resilient, and cost-conscious cloud storage solution.
 
 ---
 
-**Author:** Inyambe kani Wogar  
-**Platform:** Microsoft Azure  
-**Project:** Create and Configure an Azure Storage Account
+## Portfolio Value
+
+This project is intended to demonstrate practical Azure skills and the ability to document cloud infrastructure decisions.
+
+It can serve as a foundation for more advanced Azure architecture projects involving:
+
+- Azure Virtual Networks
+- Private Endpoints
+- Azure Key Vault
+- Azure Backup
+- Azure Site Recovery
+- Azure Monitor
+- Infrastructure as Code
+- CI/CD deployment
+- Multi-region architectures
