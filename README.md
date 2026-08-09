@@ -239,7 +239,7 @@ A typical strategy may be:
 
 This can reduce storage costs while retaining data according to business requirements.
 
-![Step 11 - Lifecycle Management](./11-11-Selec-Lifecycle-management-and-ad- a-rule-that-moves-blobs-to-cool-storage-if-not-modified- in-30-days.png)
+![Step 11 - Lifecycle Management](./11-Select-Lifecycle-management-and-add-a-rule-that-moves-blobs-to-cool-storage-if-not-modified-in-30-days.png)
 
 ---
 
