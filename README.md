@@ -125,7 +125,7 @@ Soft delete provides protection against accidental deletion and can support reco
 
 Soft delete should complement, not replace, an appropriate backup and disaster-recovery strategy.
 
-![Step 4 - Enable Soft Delete](./04-on-the-data-protection-tab-enable-soft-delete.png)
+![Step 4 - Enable Soft Delete](./04-on-the-data-protection-tab-enable-soft-delete-for-files-and-containers.png)
 
 ---
 
@@ -153,7 +153,7 @@ After deployment, the storage account was opened and the configuration was revie
 - Review networking and security.
 - Verify redundancy.
 
-![Step 6 - Open Resource](./06-go-to-resource-after-storage-is-completed.png)
+![Step 6 - Open Resource](./06-go-to-resourse-after-storage-is-completed.png)
 
 ---
 
@@ -182,7 +182,7 @@ Important controls include:
 - Encryption
 - Monitoring and logging
 
-![Step 8 - Security and Networking](./08-Under-security-and-Networking-blade-select.png)
+![Step 8 - Security and Networking](./08-Under-Security-and-Networking-blade-select-networking-and-click-on-manage-in-the-pubic-access-tab-under-public-network-access.png)
 
 ---
 
@@ -200,7 +200,7 @@ A production architecture may use:
 
 This provides private connectivity to the storage service.
 
-![Step 9 - Network Access](./09-enable-public-access-for-selected-network.png)
+![Step 9 - Network Access](./09-Enable-Public-access-for-Selected-Networks-and-add-your-ipaddress.png)
 
 ---
 
@@ -239,7 +239,7 @@ A typical strategy may be:
 
 This can reduce storage costs while retaining data according to business requirements.
 
-![Step 11 - Lifecycle Management](./11-Select-Lifecycle-management-and-add-a-rule.png)
+![Step 11 - Lifecycle Management](./11-Selec- Lifecycle-management-and-ad- a-rule-that-moves-blobs-to-cool-storage-if-not-modified- in-30-days.png)
 
 ---
 
